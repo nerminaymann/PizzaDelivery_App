@@ -45,5 +45,5 @@ class Order(models.Model):
     shipping_address=models.CharField(max_length=100)
 
     def __str__(self):
-        return self.user.email
+        return self.user.email + " | " + self.flavour.flavour +" | " + self.size
 
