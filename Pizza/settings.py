@@ -37,6 +37,8 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "Authentication.CustomUser"
 
+REST_FRAMEWORK = {'NON_FIELD_ERRORS_KEY': 'errors'}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

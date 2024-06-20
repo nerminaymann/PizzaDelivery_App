@@ -10,3 +10,4 @@ admin.site.register(PizzaSizePrices)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['user','flavour','size','order_status','shipping_address','created_at']
     list_filter = ['order_status','size','created_at']
+
