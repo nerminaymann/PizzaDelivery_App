@@ -26,9 +26,7 @@ class UserCreationSerializer(serializers.ModelSerializer):
         #     raise serializers.ValidationError("passwords don't match")
 
         password = CustomUser.objects.filter(password=data['password'])
-        if password.exists():
-            raise serializers.ValidationError("password already taken")
-        
+
         # if password and password[0].lower() != password[1].lower():
         #     raise serializers.ValidationError("passwords don't match")
 
