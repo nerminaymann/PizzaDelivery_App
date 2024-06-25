@@ -13,7 +13,6 @@ class Authentication(generics.GenericAPIView):
     def get(self, request):
         return Response(data={"message": "Hello authentication"}, status=status.HTTP_200_OK)
 
-
 class SignUp(generics.GenericAPIView):
     serializer_class = UserCreationSerializer
     def post(self, request):

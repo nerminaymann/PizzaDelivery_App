@@ -15,4 +15,10 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ["user", "flavour","size", "quantity","order_status",'shipping_address']
+        fields = ["flavour","size", "quantity","order_status",'shipping_address']
+
+class UpdateStatusSerializer(serializers.ModelSerializer):
+    order = OrderSerializer(read_only=True)
+    class Meta:
+        model = Order
+        fields = ['order','user', 'order_status']

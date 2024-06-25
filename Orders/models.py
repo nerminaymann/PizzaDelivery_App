@@ -1,12 +1,25 @@
 from django.db import models
+from Authentication.models import CustomUser
+from Authentication.managers import CustomUserManager
+from Pizza import settings
+
 # from mptt.fields import TreeForeignKey
 # from mptt.models import MPTTModel , TreeForeignKey
-from Authentication.models import CustomUser
 
 # Create your models here.
 
-order_status=[("Pending","Pending"),("In Transit","In Transit"),("Delivered","Delivered"),("Cancelled","Cancelled")]
-pizza_size = [("Small","Small"),("Medium","Medium"),("Large","Large"),("Extra Large","Extra Large")]
+order_status=[
+    ("Pending","Pending"),
+    ("In Transit","In Transit"),
+    ("Delivered","Delivered"),
+    ("Cancelled","Cancelled")
+]
+pizza_size = [
+    ("Small","Small"),
+    ("Medium","Medium"),
+    ("Large","Large"),
+    ("Extra Large","Extra Large")
+              ]
 
 # class PizzaFlavour(MPTTModel):
 #     flavour = models.CharField(max_length=50)
@@ -36,7 +49,7 @@ class PizzaSizePrices(models.Model):
 
 class Order(models.Model):
     size = models.CharField(max_length=50, choices=pizza_size,default='')
-    order_status = models.CharField(max_length=50, choices=order_status,default='')
+    order_status = models.CharField(max_length=50, choices=order_status,default='Pending')
     flavour = models.ForeignKey(PizzaFlavour,on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)

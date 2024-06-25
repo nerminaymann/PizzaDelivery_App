@@ -6,6 +6,7 @@ class CustomUserManager(BaseUserManager):
     def create_user(self,email,password,**extra_fields):
 
         #create and save user with the given email and pass
+        extra_fields.setdefault("is_active", True)
         if not email:
             raise ValueError(_("The Email must be set"))
 
