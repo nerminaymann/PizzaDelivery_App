@@ -28,9 +28,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_authtoken',
     'djoser',
     'rest_framework_simplejwt',
-    # 'rest_framework.authtoken',
     'Orders.apps.OrdersConfig'
 ]
 
@@ -40,14 +40,20 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'errors',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+        'rest_authtoken.auth.AuthTokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',
+                                   # 'rest_framework.permissions.AllowAny',
+                                   )
 }
+
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
     'USER_ID_FIELD': 'email',
     'USER_ID_CLAIM': 'user_id',
+    'UPDATE_LAST_LOGIN': True,
     'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),

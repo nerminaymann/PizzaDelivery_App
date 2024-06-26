@@ -24,7 +24,7 @@ USER ORDERS:
 #  HOW TO AUTHENTICATE ON POSTMAN:
 1) .../auth/jwt/create         (for signin)
 2) copy access token 
-3) in the headers key :"Authentication", it's value is :"Bearer <paste the access token>"
+3) in the headers key :"Authorization", it's value is :"Bearer <paste the access token>"
 4) then you can access the CRUD Api Operations, and add the data as JSON in Body
 
 

@@ -42,49 +42,48 @@ class OrderList(generics.GenericAPIView):
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
+    Permission_classes = [IsAuthenticated]
     def get_order(self,request,pk):
-        order = Order.objects.get(id=pk)
+        order = get_object_or_404(Order, id=pk)
         serializer = OrderSerializer(order,many=False)
         return Response(data = serializer.data,status=status.HTTP_200_OK)
 
     def put_order(self,request,pk):
-        order = Order.objects.get(id=pk)
+        order = get_object_or_404(Order, id=pk)
+        user = request.user
         serializer = OrderSerializer(data=request.data,instance=Order)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=user)
             return Response(self.get_order(order,pk),status=status.HTTP_200_OK)
         return (serializer.errors)
 
     def delete_order(self,request,pk):
         order = Order.objects.get(id=pk)
         order.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({"message":"the order is deleted successfully "},status=status.HTTP_204_NO_CONTENT)
 
 #after user clicked on CheckOut Button
 class UpdateStatus_CheckOutButton(generics.UpdateAPIView):
     serializer_class = UpdateStatusSerializer
     queryset = Order.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def get_order(self,request,pk):
         order = Order.objects.get(id=pk)
         serializer = OrderSerializer(order,many=False)
         return Response(data=serializer.data,status=status.HTTP_200_OK)
 
-    # def patch_order_status(self,request,pk):
-    #     order = get_object_or_404(Order,id=pk)
-    #     data = {"order_status": 'In Transit'}
-    #     serializer = UpdateStatusSerializer(data=data,instance=Order)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(self.get_order(order,pk),status=status.HTTP_200_OK)
-    #     return (serializer.errors,status.HTTP_400_BAD_REQUEST)
-
-    def patch_order_status(self,pk, request, *args, **kwargs):
-        order = get_object_or_404(Order, id=pk)
-        order_status = kwargs.pop('order_status', "In Transit")
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, order_status=order_status)
+    def patch_order_status(self,request,pk):
+        order = get_object_or_404(Order,id=pk)
+        user = request.user
+        order.order_status = "In Transit"
+        order.save()
+        serializer = self.get_serializer(order,instance=Order)
         if serializer.is_valid():
-            serializer.save()
-            return Response(self.get_order(order,pk),status=status.HTTP_200_OK)
-        return (serializer.errors, status.HTTP_400_BAD_REQUEST)
+            serializer.save(user)
+            self.perform_update(serializer)
+            return Response(data=serializer.data,status=status.HTTP_200_OK)
+        return (serializer.errors,status.HTTP_400_BAD_REQUEST)
+
+        # this will return order's data as a response
+        return Response(self.get_order(order,pk),status=status.HTTP_200_OK)

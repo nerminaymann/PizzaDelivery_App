@@ -26,7 +26,7 @@ class CustomUser(AbstractUser):
         refresh = RefreshToken.for_user(self)
         return {
             'refresh': str(refresh),
-            'access': str(refresh.token),
+            'access': str(refresh.access_token),
         }
 
 
