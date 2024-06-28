@@ -11,7 +11,7 @@ AUTHENTICATION:
 ORDERS:
 .../orders/                 (GET & POST orders)
 .../orders/<int:pk>         (GET & POST)
-.../orders/<int:pk>         (PUT & DELETE)
+.../orders/<int:pk>         (PUT & DELETE)      (Only SuperUser)
 
 ORDER_STATUS:
 .../orders/update-status/<int:pk>       (PUT)  (Only SuperUser)

@@ -4,9 +4,12 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
 from .models import Order
 from .serializers import OrderSerializer,UpdateStatusSerializer
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 # Create your views here.
@@ -42,7 +45,7 @@ class OrderList(generics.GenericAPIView):
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
-    Permission_classes = [IsAuthenticated]
+    Permission_classes = [IsAdminUser]
     def get_order(self,request,pk):
         order = get_object_or_404(Order, id=pk)
         serializer = OrderSerializer(order,many=False)
@@ -66,7 +69,7 @@ class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
 class UpdateStatus_CheckOutButton(generics.UpdateAPIView):
     serializer_class = UpdateStatusSerializer
     queryset = Order.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def get_order(self,request,pk):
         order = Order.objects.get(id=pk)
@@ -87,3 +90,33 @@ class UpdateStatus_CheckOutButton(generics.UpdateAPIView):
 
         # this will return order's data as a response
         return Response(self.get_order(order,pk),status=status.HTTP_200_OK)
+
+
+class UserOrdersView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = OrderSerializer
+    queryset = Order.objects.all()
+
+    def get_user_orders(self,request,user_id):
+        request.user.id = user_id
+        orders = Order.objects.filter(user=user_id)
+        serializer = self.serializer_class(orders, many=True)
+        if serializer is not None:
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response("you've not made orders yet, try again",status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserOrderDetailView(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = OrderSerializer
+    queryset = Order.objects.all()
+
+    def get_user_specific_orders(self,request,user_id,pk):
+        request.user.id = user_id
+        order = Order.objects.filter(user=user_id,pk=pk).first()
+        serializer = self.serializer_class(order, many=False)
+        if serializer is not None:
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response("order doesn't exist, please try again",status=status.HTTP_400_BAD_REQUEST)

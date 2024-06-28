@@ -10,18 +10,12 @@ class UserCreationSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=50)
     email = serializers.EmailField(max_length=80)
     phone_number = PhoneNumberField(allow_blank=False,allow_null=False)
-    password = serializers.CharField(min_length=8)
+    password = serializers.CharField(min_length=8,write_only=True)
 
     class Meta:
         model = CustomUser
         fields = ['username', 'email', "password", 'password', 'phone_number']
 
-    def create(self, validated_data):
-        password = validated_data.pop('password')
-        user = CustomUser(**validated_data)
-        user.set_password(password)
-        user.save()
-        return user
     def validate(self, data):
         username = CustomUser.objects.filter(username=data['username'])
         if username.exists():
@@ -46,17 +40,21 @@ class UserCreationSerializer(serializers.ModelSerializer):
 
         return super().validate(data)
 
-#TO MAKE SURE THAT THE USER IS ACTIVE & PASSWORD IS HASHED
-    # def create(self, validated_data):
-    #     user = CustomUser.objects.create(email=validated_data['email'], username=validated_data['username'],
-    #                                      phone_number=validated_data['phone_number']
-    #                                      )
-    #     user.set_password(validated_data['password'])
-    #     user.save()
-    #     return user
 
-    def validate_password(self,value:str) -> str:
-        return make_password(value)
+    # TO MAKE SURE THAT THE NEW USER IS ACTIVE & PASSWORD IS HASHED
+    #create an USER OBJ
+    def create(self, validated_data):
+        user = CustomUser.objects.create(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            phone_number=validated_data['phone_number']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
+    # def validate_password(self,value:str) -> str:
+    #     return make_password(value)
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
