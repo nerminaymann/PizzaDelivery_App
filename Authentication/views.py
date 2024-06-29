@@ -60,4 +60,5 @@ class SignUp(generics.GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
+# class LogOutView(generics.GenericAPIView):
+#     permission_classes = [IsAuthenticated]

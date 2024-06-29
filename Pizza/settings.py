@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_spectacular',
     'rest_authtoken',
     'djoser',
     'rest_framework_simplejwt',
@@ -44,9 +45,24 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',
                                    # 'rest_framework.permissions.AllowAny',
-                                   )
+                                   ),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
+# swagger_ui = True
+SPECTACULAR_SETTINGS = {
+    'TITLE':'Django DRF Pizza Delivery App',
+    'DESCRIPTION':'A REST API for a Pizza Delivery Service',
+    'SECURITY_DEFINITIONS':{
+        'Bearer':{
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'DEFAULT_VERSION': '1.0.0',
+    'CONTACT_EMAIL': 'nermin@gmail.com',
+}
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
