@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "a44b6e5b-804c-4df5-b8a0-b03dbe8a115c",
+		"name": "PizzaApp Docs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19821752"
+	},
+	"item": [
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"nermin2@gmail.com\",\r\n    \"password\":\"12345678\",\r\n    \"username\":\"nermin2\",\r\n    \"phone_number\": \"+201006670469\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/auth/signup/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"signup",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a JWT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"nermin@gmail.com\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/auth/jwt/create/\n",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"jwt",
+						"create",
+						"\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get orders list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NDM5NTAwLCJpYXQiOjE3MTkzNTMxMDAsImp0aSI6ImEzODY1Mzk0MDk1YzRmN2FhMjExMzhmMzE1NjJhNzUyIiwidXNlcl9pZCI6Im5lcm1pbkBnbWFpbC5jb20ifQ.MoIcrEof9sm6ptqF6e0x6-8CFoMFQSfGItYY-V8GTNo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/orders/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"orders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"nermin@gmail.com\",\r\n\"password\":\"12345\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/auth/login/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post an order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NDM5NTAwLCJpYXQiOjE3MTkzNTMxMDAsImp0aSI6ImEzODY1Mzk0MDk1YzRmN2FhMjExMzhmMzE1NjJhNzUyIiwidXNlcl9pZCI6Im5lcm1pbkBnbWFpbC5jb20ifQ.MoIcrEof9sm6ptqF6e0x6-8CFoMFQSfGItYY-V8GTNo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"size\":\"Extra Large \",\r\n    \"flavour\":\"2\",\r\n    \"quantity\":\"6\",\r\n    \"shipping_address\":\"Tanta, ahmed farid st\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/orders/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"orders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get An Order by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NDM5NTAwLCJpYXQiOjE3MTkzNTMxMDAsImp0aSI6ImEzODY1Mzk0MDk1YzRmN2FhMjExMzhmMzE1NjJhNzUyIiwidXNlcl9pZCI6Im5lcm1pbkBnbWFpbC5jb20ifQ.MoIcrEof9sm6ptqF6e0x6-8CFoMFQSfGItYY-V8GTNo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/orders/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"orders",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an order",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NTA0NjM1LCJpYXQiOjE3MTk0MTgyMzUsImp0aSI6ImRkN2E2NDFkYjVhZjQwNmY4YmU1NjI0YjA1ZjExMDVlIiwidXNlcl9pZCI6Im5lcm1pbkBnbWFpbC5jb20ifQ.D_7_5Tb0HW25dDUCK2db4eS1vI0-MbnB5AT7SBwgRsU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"size\":\"Large \",\r\n    \"flavour\":\"3\",\r\n    \"quantity\":\"4\",\r\n    \"shipping_address\":\"Alex,ahmed st\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/orders/1/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"orders",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an order",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NTA0NjM1LCJpYXQiOjE3MTk0MTgyMzUsImp0aSI6ImRkN2E2NDFkYjVhZjQwNmY4YmU1NjI0YjA1ZjExMDVlIiwidXNlcl9pZCI6Im5lcm1pbkBnbWFpbC5jb20ifQ.D_7_5Tb0HW25dDUCK2db4eS1vI0-MbnB5AT7SBwgRsU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/orders/2/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"orders",
+						"2",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch the order status",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NTA0NjM1LCJpYXQiOjE3MTk0MTgyMzUsImp0aSI6ImRkN2E2NDFkYjVhZjQwNmY4YmU1NjI0YjA1ZjExMDVlIiwidXNlcl9pZCI6Im5lcm1pbkBnbWFpbC5jb20ifQ.D_7_5Tb0HW25dDUCK2db4eS1vI0-MbnB5AT7SBwgRsU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/orders/update-status/1/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"orders",
+						"update-status",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User's orders",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NjUzMjU3LCJpYXQiOjE3MTk1NjY4NTcsImp0aSI6ImE2OTAxNzdjNWViNDQ1MTk5M2UyZTY3YWNmZjAxY2NhIiwidXNlcl9pZCI6Im5lcm1pbkBnbWFpbC5jb20ifQ.M8LU1EdiXKEqn2F9iflMyPJJfKE6vEjQmNzTveL5h08",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/orders/1/orders/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"orders",
+						"1",
+						"orders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user's Specific order detail",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "HEAD",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NjUzMjU3LCJpYXQiOjE3MTk1NjY4NTcsImp0aSI6ImE2OTAxNzdjNWViNDQ1MTk5M2UyZTY3YWNmZjAxY2NhIiwidXNlcl9pZCI6Im5lcm1pbkBnbWFpbC5jb20ifQ.M8LU1EdiXKEqn2F9iflMyPJJfKE6vEjQmNzTveL5h08",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/auth/logout/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"logout",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
